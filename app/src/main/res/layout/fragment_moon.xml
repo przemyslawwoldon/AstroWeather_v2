@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="layout.SunFragment">
+    tools:context="layout.MoonFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,16 +11,16 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/icon_32" />
+            app:srcCompat="@drawable/icon_31" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -32,37 +32,17 @@
                 android:text="East time : " />
 
             <TextView
-                android:id="@+id/SunFargtextViewEastTime"
+                android:id="@+id/MoonFargtextViewRiseMoon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="00,00" />
+                android:text="@string/before_calculate" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="East azimuth : " />
-
-            <TextView
-                android:id="@+id/SunFargtextViewEastAzimuth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="00,00" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -74,16 +54,17 @@
                 android:text="West time : " />
 
             <TextView
-                android:id="@+id/SunFargtextViewWestTime"
+                android:id="@+id/MoonFargtextViewSetMoon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="00,00" />
+                android:text="@string/before_calculate" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -92,19 +73,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="West azimuth : " />
+                android:text="Full moon : " />
 
             <TextView
-                android:id="@+id/SunFargtextViewWestAzimuth"
+                android:id="@+id/MoonFargtextViewFullMoon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="00,00" />
+                android:text="@string/before_calculate" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -113,19 +95,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="Civil evening time : " />
+                android:text="New moon : " />
 
             <TextView
-                android:id="@+id/SunFargtextViewCivilEvening"
+                android:id="@+id/MoonFargtextViewNewMoon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="00,00" />
+                android:text="@string/before_calculate" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -134,14 +117,36 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="Civil daylight time : " />
+                android:text="Illumination moon : " />
 
             <TextView
-                android:id="@+id/SunFargtextViewCivilDaylight"
+                android:id="@+id/MoonFargtextViewPhase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="00,00" />
+                android:text="@string/before_calculate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Synodic day : " />
+
+            <TextView
+                android:id="@+id/MoonFargtextViewSynodicDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/before_calculate" />
         </LinearLayout>
 
     </LinearLayout>

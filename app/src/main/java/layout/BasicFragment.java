@@ -72,11 +72,17 @@ public class BasicFragment extends Fragment{
 
     public void setData() {
         Channel channel = mainActivity.getChannel();
+        String units = mainActivity.getTemperatureUnits();
         if(channel != null) {
             Condition condition = channel.getItem().getCondition();
             int weatherIconImageResource = getActivity().getResources().getIdentifier("icon_" + condition.getCode(), "drawable", getActivity().getPackageName());
             weatherIconImageView.setImageResource(weatherIconImageResource);
-            temperatureTextView.setText(getString(R.string.temperature_output, condition.getTemperature(), channel.getUnits().getTemperature()));
+            if(units.equals("c"))
+                temperatureTextView.setText(getString(R.string.temperature_output, condition.getTemperature(), channel.getUnits().getTemperature()));
+            else {
+                double c = (condition.getTemperature() * 1.8 ) + 32;
+                temperatureTextView.setText(String.valueOf(c) + " °F");
+            }
             conditionTextView.setText(condition.getDescription());
             locationTextView.setText(channel.getLocation());
             String p = String.valueOf(channel.getAtmosphere().getPressure()) + channel.getUnits().getPressure();

@@ -20,7 +20,9 @@ import java.util.Calendar;
 
 import layout.AdditionFragment;
 import layout.BasicFragment;
+import layout.MoonFragment;
 import layout.NextDayFragment;
+import layout.SunFragment;
 
 public class MainActivity extends AppCompatActivity implements WeatherServiceListener{
 
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
     YahooWeatherService yahooWeatherService;
     Channel channel;
-    private WeatherServiceListener l;
 
     private static int timeRefr = 15;
     private static StringBuffer sb = new StringBuffer();
@@ -43,8 +44,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     public final static String M_TEMPERATURE_UNITS = "Temperature units";
     public final static String M_LOCATION = "Main degree latitude";
 
-    String temperatuerUnits = "f";
-    String localization;
+    String temperatureUnits = "f";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         String tempUnits = intent.getStringExtra(SettingsActivity.TEMP_UNITS);
          if((tR != null) && (location != null) && (tempUnits != null)) {
             timeRefr = Integer.parseInt(tR);
-
+            temperatureUnits = tempUnits;
 
         }
     }
@@ -114,11 +114,15 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                     return AdditionFragment.newInstance();
                 case 2:
                     return NextDayFragment.newInstance();
+                case 3:
+                    return SunFragment.newInstance();
+                case 4:
+                    return MoonFragment.newInstance();
             }
         }
         @Override
         public int getCount() {
-            return 4;
+            return 6;
         }
     }
 
@@ -135,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
             case R.id.settings:
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
                 settingsIntent.putExtra(M_TIME_REFRESH, String.valueOf(timeRefr));
-                settingsIntent.putExtra(M_TEMPERATURE_UNITS, temperatuerUnits);
+                settingsIntent.putExtra(M_TEMPERATURE_UNITS, temperatureUnits);
                 settingsIntent.putExtra(M_LOCATION, "aaaa");
                 MainActivity.this.startActivity(settingsIntent);
                 return true;
@@ -160,5 +164,9 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
     public Channel getChannel() {
         return channel;
+    }
+
+    public String getTemperatureUnits() {
+        return temperatureUnits;
     }
 }

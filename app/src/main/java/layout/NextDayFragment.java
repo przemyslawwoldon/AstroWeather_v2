@@ -93,33 +93,47 @@ public class NextDayFragment extends Fragment {
 
     public void setData() {
         Channel channel = mainActivity.getChannel();
+        String units = mainActivity.getTemperatureUnits();
         if(channel != null) {
             Condition[] forecast = channel.getItem().getForecast();
-
-
             int weatherIconImageResource = getActivity().getResources().getIdentifier("icon_" + forecast[0].getCode(), "drawable", getActivity().getPackageName());
             weatherIconImageView1.setImageResource(weatherIconImageResource);
             dayTextView1.setText(forecast[0].getDay());
-            highTextView1.setText(getString(R.string.temperature_output, forecast[0].getHighTemperature(), channel.getUnits().getTemperature()));
-            lowTextView1.setText(getString(R.string.temperature_output, forecast[0].getLowTemperature(), channel.getUnits().getTemperature()));
+            if(units.equals("c")) {
+                highTextView1.setText(getString(R.string.temperature_output, forecast[0].getHighTemperature(), channel.getUnits().getTemperature()));
+                lowTextView1.setText(getString(R.string.temperature_output, forecast[0].getLowTemperature(), channel.getUnits().getTemperature()));
+            }else {
+                double cH = (forecast[0].getHighTemperature() * 1.8 ) + 32;
+                double cL = (forecast[0].getLowTemperature() * 1.8 ) + 32;
+                highTextView1.setText(String.valueOf(cH) + " °F");
+                lowTextView1.setText(String.valueOf(cL) + " °F");
+            }
 
             int weatherIconImageResource2 = getActivity().getResources().getIdentifier("icon_" + forecast[1].getCode(), "drawable", getActivity().getPackageName());
             weatherIconImageView2.setImageResource(weatherIconImageResource2);
-            dayTextView2.setText(forecast[0].getDay());
-            highTextView2.setText(getString(R.string.temperature_output, forecast[1].getHighTemperature(), channel.getUnits().getTemperature()));
-            lowTextView2.setText(getString(R.string.temperature_output, forecast[1].getLowTemperature(), channel.getUnits().getTemperature()));
+            dayTextView2.setText(forecast[1].getDay());
+            if(units.equals("c")) {
+                highTextView2.setText(getString(R.string.temperature_output, forecast[1].getHighTemperature(), channel.getUnits().getTemperature()));
+                lowTextView2.setText(getString(R.string.temperature_output, forecast[1].getLowTemperature(), channel.getUnits().getTemperature()));
+            }else {
+                double cH = (forecast[1].getHighTemperature() * 1.8 ) + 32;
+                double cL = (forecast[1].getLowTemperature() * 1.8 ) + 32;
+                highTextView2.setText(String.valueOf(cH) + " °F");
+                lowTextView2.setText(String.valueOf(cL) + " °F");
+            }
 
             int weatherIconImageResource3 = getActivity().getResources().getIdentifier("icon_" + forecast[2].getCode(), "drawable", getActivity().getPackageName());
             weatherIconImageView3.setImageResource(weatherIconImageResource3);
-            dayTextView3.setText(forecast[0].getDay());
-            highTextView3.setText(getString(R.string.temperature_output, forecast[2].getHighTemperature(), channel.getUnits().getTemperature()));
-            lowTextView3.setText(getString(R.string.temperature_output, forecast[2].getLowTemperature(), channel.getUnits().getTemperature()));
-
-
-
-
-
-
+            dayTextView3.setText(forecast[2].getDay());
+            if(units.equals("c")) {
+                highTextView3.setText(getString(R.string.temperature_output, forecast[2].getHighTemperature(), channel.getUnits().getTemperature()));
+                lowTextView3.setText(getString(R.string.temperature_output, forecast[2].getLowTemperature(), channel.getUnits().getTemperature()));
+            }else {
+                double cH = (forecast[2].getHighTemperature() * 1.8 ) + 32;
+                double cL = (forecast[2].getLowTemperature() * 1.8 ) + 32;
+                highTextView3.setText(String.valueOf(cH) + " °F");
+                lowTextView3.setText(String.valueOf(cL) + " °F");
+            }
         }
     }
 

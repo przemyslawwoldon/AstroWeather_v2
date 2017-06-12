@@ -18,37 +18,38 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class SunFragment extends Fragment {
-    TextView eastTime;
-    TextView eastAzimuth;
-    TextView westTime;
-    TextView westAzimuth;
-    TextView civilEvening;
-    TextView civilMorning;
+public class MoonFragment extends Fragment {
+    TextView riseTime;
+    TextView setTime;
+    TextView fullTime;
+    TextView newTime;
+    TextView phase;
+    TextView synodicDay;
 
     Calendar calendar;
     MainActivity mainActivity;
 
-    public SunFragment() {
+    public MoonFragment() {
     }
 
-    public static SunFragment newInstance() {
-        SunFragment fragment = new SunFragment();
+    public static MoonFragment newInstance() {
+        MoonFragment fragment = new MoonFragment();
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         mainActivity = (MainActivity) getActivity();
 
-        View view = inflater.inflate(R.layout.fragment_sun, container, false);
-        eastTime = (TextView) view.findViewById(R.id.SunFargtextViewEastTime);
-        eastAzimuth = (TextView) view.findViewById(R.id.SunFargtextViewEastAzimuth);
-        civilEvening = (TextView) view.findViewById(R.id.SunFargtextViewCivilEvening);
-        civilMorning = (TextView) view.findViewById(R.id.SunFargtextViewCivilDaylight);
-        westTime = (TextView) view.findViewById(R.id.SunFargtextViewWestTime);
-        westAzimuth = (TextView) view.findViewById(R.id.SunFargtextViewWestAzimuth);
+        View view = inflater.inflate(R.layout.fragment_moon, container, false);
+        riseTime = (TextView) view.findViewById(R.id.MoonFargtextViewRiseMoon);
+        setTime = (TextView) view.findViewById(R.id.MoonFargtextViewSetMoon);
+        fullTime = (TextView) view.findViewById(R.id.MoonFargtextViewFullMoon);
+        newTime = (TextView) view.findViewById(R.id.MoonFargtextViewNewMoon);
+        phase = (TextView) view.findViewById(R.id.MoonFargtextViewPhase);
+        synodicDay = (TextView) view.findViewById(R.id.MoonFargtextViewSynodicDay);
 
         refreshData();
         Thread t = new Thread() {
@@ -89,20 +90,29 @@ public class SunFragment extends Fragment {
                     calendar.get(Calendar.SECOND), offset, timeZone.useDaylightTime());
 
             AstroCalculator astroCalculator = new AstroCalculator(astroDateTime, astroLocation);
-            NumberFormat formatter = new DecimalFormat("#0.00");
 
-            AstroDateTime sunRise = astroCalculator.getSunInfo().getSunrise();
-            eastTime.setText(sunRise.getHour() + " : " + sunRise.getMinute() + " : " + sunRise.getSecond());
-            eastAzimuth.setText(formatter.format(astroCalculator.getSunInfo().getAzimuthRise()));
+            AstroDateTime moonRise = astroCalculator.getMoonInfo().getMoonrise();
+            AstroDateTime moonSet = astroCalculator.getMoonInfo().getMoonset();
+            riseTime.setText(moonRise.getHour() + " : " + moonRise.getMinute() + " : " + moonRise.getSecond());
+            setTime.setText(moonSet.getHour() + " : " + moonSet.getMinute() + " : " + moonSet.getSecond());
 
-            AstroDateTime sunSet = astroCalculator.getSunInfo().getSunset();
-            westTime.setText(sunSet.getHour() + " : " + sunSet.getMinute() + " : " + sunSet.getSecond());
-            westAzimuth.setText(formatter.format(astroCalculator.getSunInfo().getAzimuthSet()));
+            AstroDateTime moonNew = astroCalculator.getMoonInfo().getNextNewMoon();
+            AstroDateTime moonFull = astroCalculator.getMoonInfo().getNextFullMoon();
 
-            AstroDateTime sunTwilightEvening = astroCalculator.getSunInfo().getTwilightEvening();
-            AstroDateTime sunTwilightMorning = astroCalculator.getSunInfo().getTwilightMorning();
-            civilEvening.setText(sunTwilightEvening.getHour() + " : " + sunTwilightEvening.getMinute() + " : " + sunTwilightEvening.getSecond());
-            civilMorning.setText(sunTwilightMorning.getHour() + " : " + sunTwilightMorning.getMinute() + " : " + sunTwilightMorning.getSecond());
+            fullTime.setText(moonFull.getDay() + "." + moonFull.getMonth() + "." + moonFull.getYear() + ", "
+                    + moonFull.getHour() + " : " + moonFull.getMinute() + " : " + moonFull.getSecond());
+            newTime.setText(moonNew.getDay() + "." + moonNew.getMonth() + "." + moonNew.getYear() + ", "
+                    + moonNew.getHour() + " : " + moonNew.getMinute() + " : " + moonNew.getSecond());
+
+            NumberFormat formatter = new DecimalFormat("#0.0000");
+            double moonPhaseTemp = astroCalculator.getMoonInfo().getIllumination();
+            moonPhaseTemp *= 100;
+            phase.setText(formatter.format(moonPhaseTemp));
+
+            calendar = Calendar.getInstance();
+            calendar.setTimeZone(TimeZone.getTimeZone("GMT+2:00"));
+
+            synodicDay.setText(formatter.format(astroCalculator.getMoonInfo().getAge()));
         }
     }
 }
