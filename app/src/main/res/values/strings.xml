@@ -25,4 +25,8 @@
 
     <string name="before_calculate">"00,00"</string>
 
+    <string-array name="acc_type">
+        <item>Income</item>
+    </string-array>
+
 </resources>

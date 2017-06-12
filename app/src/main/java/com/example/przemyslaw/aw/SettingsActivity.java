@@ -23,6 +23,7 @@ import com.example.przemyslaw.aw.service.YahooWeatherService;
 import org.greenrobot.greendao.database.Database;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, WeatherServiceListener{
     private Button commitCity;
@@ -51,6 +52,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        configureDb();
+        dbGetCityAndCheckList();
         init();
 
         Intent intent = getIntent();
@@ -85,10 +89,8 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 }
             }
         });
-        configureDb();
 
         spinnerCity.setOnItemSelectedListener(this);
-        listaUlubionychMiast.add("Lodz, Lodz");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaUlubionychMiast);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCity.setAdapter(dataAdapter);
@@ -105,7 +107,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v){
                 if(checkRefresh() && sb.length() != 0) {
-                    //Toast.makeText(SettingsActivity.this, sb.toString(), Toast.LENGTH_LONG).show();
                     Intent intentM = new Intent(SettingsActivity.this, MainActivity.class);
                     intentM.putExtra(TIME_REFRESH, String.valueOf(timeRefr));
                     if(tF.isChecked())
@@ -181,19 +182,20 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 break;
             }
         }
-        if(flagIsCity == true) {
-            Toast.makeText(SettingsActivity.this, "Error miasto juz istnieje", Toast.LENGTH_LONG).show();
+        if(flagIsCity) {
+            //DO NOTHING
+            //Toast.makeText(SettingsActivity.this, "Error miasto juz istnieje", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(SettingsActivity.this, "Dodano miasto", Toast.LENGTH_LONG).show();
             City cityAdd = new City(null, channel.getLocation(), channel.getItem().getLatitude(), channel.getItem().getLongitude());
-            dbInsert(cityAdd);
             listaUlubionychMiast.add(channel.getLocation());
+            dbInsert(cityAdd);
         }
     }
 
     @Override
     public void serviceFailure(Exception exception) {
-        Toast.makeText(SettingsActivity.this, "Error", Toast.LENGTH_LONG).show();
+        //DO NOTHING
+        //Toast.makeText(SettingsActivity.this, "Error nie istnieje miasto", Toast.LENGTH_LONG).show();
     }
 
     public void configureDb() {
@@ -207,21 +209,13 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         daoSession.insertOrReplace(c);
     }
 
-   /* public void dbGetCityAndCheckList() {
-        List<City> users =  daoSession.loadAll(City.class);
-        if(users.size() != 0) {
-            for(int i = 0; i < users.size(); i += 1) {
-                String cityToAdd = users.get(i).getName();
-                boolean flagIsCity = false;
-                for(int j = 0; j < listaUlubionychMiast.size(); j += 1) {
-                    if(listaUlubionychMiast.get(j).equals(cityToAdd)) {
-                        flagIsCity = true;
-                        break;
-                    }
-                } if(flagIsCity == false)
-                    listaUlubionychMiast.add(cityToAdd);
+    public void dbGetCityAndCheckList() {
+        List<City> city = daoSession.getCityDao().loadAll();
+        if(city.size() != 0) {
+            for(int i = 0; i < city.size(); i += 1) {
+                listaUlubionychMiast.add(city.get(i).getName());
             }
         }
-    }*/
+    }
 
 }
