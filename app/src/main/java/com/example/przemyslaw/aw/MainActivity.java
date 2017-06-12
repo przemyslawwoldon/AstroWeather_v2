@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +18,12 @@ import com.example.przemyslaw.aw.service.YahooWeatherService;
 
 import java.util.Calendar;
 
+import layout.AdditionFragment;
 import layout.BasicFragment;
+import layout.NextDayFragment;
 
 public class MainActivity extends AppCompatActivity implements WeatherServiceListener{
 
-    Button b;
     TextView actualTime;
     TextView longitude;
     TextView latitude;
@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     private int minute;
     private int second;
 
-    YahooWeatherService yws;
+    YahooWeatherService yahooWeatherService;
+    Channel channel;
     private WeatherServiceListener l;
 
     private static int timeRefr = 15;
@@ -54,18 +55,18 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         init();
         startClock();
 
+        yahooWeatherService = new YahooWeatherService(this);
+        yahooWeatherService.refreshWeather("Lodz, Lodz");
+
         Intent intent = getIntent();
         String tR = intent.getStringExtra(SettingsActivity.TIME_REFRESH);
         String location = intent.getStringExtra(SettingsActivity.LOCATION);
         String tempUnits = intent.getStringExtra(SettingsActivity.TEMP_UNITS);
          if((tR != null) && (location != null) && (tempUnits != null)) {
             timeRefr = Integer.parseInt(tR);
-             yws.refreshWeather(location);
+
 
         }
-
-
-
     }
 
     public void init() {
@@ -99,31 +100,27 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
-
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-
         @Override
         public android.support.v4.app.Fragment getItem(int pos) {
-        //    switch(pos) {
-          //      default:
-                //    return SunFragment.newInstance("Lodz, Lodz", "15");
-            //    case 0:
-              //      return SunFragment.newInstance("Lodz, Lodz", "15");
-                //case 1:
-                    return BasicFragment.newInstance("Lodz, Lodz", "15");
-            //}*/
+            switch(pos) {
+                default:
+                    return BasicFragment.newInstance();
+                case 0:
+                    return BasicFragment.newInstance();
+                case 1:
+                    return AdditionFragment.newInstance();
+                case 2:
+                    return NextDayFragment.newInstance();
+            }
         }
-
         @Override
         public int getCount() {
-            return 1;
+            return 4;
         }
-
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -148,9 +145,12 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                 return false;
         }
     }
+
     @Override
     public void serviceSuccess(Channel channel) {
-        Toast.makeText(MainActivity.this, "Error1", Toast.LENGTH_LONG).show();
+        longitude.setText(String.valueOf(channel.getItem().getLongitude()));
+        latitude.setText(String.valueOf(channel.getItem().getLatitude()));
+        this.channel = channel;
     }
 
     @Override
@@ -158,4 +158,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_LONG).show();
     }
 
+    public Channel getChannel() {
+        return channel;
+    }
 }

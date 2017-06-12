@@ -1,5 +1,8 @@
 package com.example.przemyslaw.aw.data;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +14,12 @@ public class Channel implements JSONPopulator {
     private Units units;
     private Item item;
     private String location;
+    private Atmosphere atmosphere;
+    private Wind wind;
+
+    public Wind getWind() {
+        return wind;
+    }
 
     public Units getUnits() {
         return units;
@@ -24,6 +33,10 @@ public class Channel implements JSONPopulator {
         return location;
     }
 
+    public Atmosphere getAtmosphere() {
+        return atmosphere;
+    }
+
     @Override
     public void populate(JSONObject data) {
 
@@ -33,14 +46,20 @@ public class Channel implements JSONPopulator {
         item = new Item();
         item.populate(data.optJSONObject("item"));
 
-        JSONObject locationData = data.optJSONObject("location");
+        atmosphere = new Atmosphere();
+        atmosphere.populate(data.optJSONObject("atmosphere"));
 
+        wind = new Wind();
+        wind.populate(data.optJSONObject("wind"));
+
+        JSONObject locationData = data.optJSONObject("location");
         String region = locationData.optString("region");
         String country = locationData.optString("country");
 
         location = String.format("%s, %s", locationData.optString("city"), (region.length() != 0 ? region : country));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public JSONObject toJSON() {
 
@@ -50,6 +69,8 @@ public class Channel implements JSONPopulator {
             data.put("units", units.toJSON());
             data.put("item", item.toJSON());
             data.put("requestLocation", location);
+            data.put("atmosphere", atmosphere);
+            data.put("wind", wind);
         } catch (JSONException e) {
             e.printStackTrace();
         }

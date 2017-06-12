@@ -1,9 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    tools:context="layout.BasicFragment">
+    tools:context="layout.WeatherConditionFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,41 +18,31 @@
             android:src="@drawable/icon_na" />
 
         <TextView
-            android:id="@+id/conditionTextView"
+            android:id="@+id/dayTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/condition"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="Day"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:typeface="serif" />
 
         <TextView
-            android:id="@+id/locationTextView"
+            android:id="@+id/highTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/location"
+            android:text="High"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/temperatureTextView"
+            android:id="@+id/lowTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/temperature"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/pressureTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Pressure"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
+            android:text="Low"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
+
 </FrameLayout>
