@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.przemyslaw.aw.data.Channel;
 import com.example.przemyslaw.aw.listener.WeatherServiceListener;
-import com.example.przemyslaw.aw.service.WeatherCacheService;
 import com.example.przemyslaw.aw.service.YahooWeatherService;
 
 import org.json.JSONException;
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     String location = "chicago, il";
 
     private boolean weatherServicesHasFailed = false;
-    private WeatherCacheService cacheService;
+
 
     private static Context mContext;
 
@@ -96,11 +95,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         MainActivity.setContext(this);
         yahooWeatherService = new YahooWeatherService(this);
         yahooWeatherService.refreshWeather(location);
-        cacheService = new WeatherCacheService(this);
-
-
-
-
 
         Intent intent = getIntent();
         String tR = intent.getStringExtra(SettingsActivity.TIME_REFRESH);
@@ -206,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         //location = channel.getLocation();
         this.channel = channel;
         String filename = location + ".json";
-
         File myFile = new File(filename);
         if(myFile.exists())
             myFile.delete();
@@ -257,7 +250,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                 Log.e("login activity", "Can not read file: " + e.toString());
                 Toast.makeText(MainActivity.this, "Can not read file", Toast.LENGTH_LONG).show();
             }
-
             try {
                 JSONObject data = new JSONObject(ret);
                 Channel channel1 = new Channel();
@@ -270,8 +262,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
 
         }
     }
