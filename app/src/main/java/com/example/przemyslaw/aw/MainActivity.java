@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,13 +19,19 @@ import android.widget.Toast;
 
 import com.example.przemyslaw.aw.data.Channel;
 import com.example.przemyslaw.aw.listener.WeatherServiceListener;
+import com.example.przemyslaw.aw.service.WeatherCacheService;
 import com.example.przemyslaw.aw.service.YahooWeatherService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 
 import layout.AdditionFragment;
@@ -59,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     String location = "chicago, il";
 
     private boolean weatherServicesHasFailed = false;
+    private WeatherCacheService cacheService;
 
     private static Context mContext;
 
@@ -88,31 +96,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         MainActivity.setContext(this);
         yahooWeatherService = new YahooWeatherService(this);
         yahooWeatherService.refreshWeather(location);
-
-       /* Context c = MainActivity.getContext();
-        File mydir = c.getDir("AstroWeatherPrivateDir", Context.MODE_PRIVATE); //Creating an internal dir;
-        File fileWithinMyDir = new File(mydir, channel.getLocation() + ".json"); //Getting a file within the dir.
-        if(mydir.exists()) {
-            Toast.makeText(MainActivity.this, mydir.getAbsolutePath(), Toast.LENGTH_LONG).show();
-        }*/
-
-      /*  try {
-            FileOutputStream out = new FileOutputStream(fileWithinMyDir);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }*/
-
-        /*try {
-            Writer output = null;
-            File file = new File(mydir, channel.getLocation() + ".json");
-            output = new BufferedWriter(new FileWriter(file));
-            output.write(channel.toJSON());
-            output.close();
-            Toast.makeText(getApplicationContext(), "Composition saved", Toast.LENGTH_LONG).show();
-
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Composition nie saved", Toast.LENGTH_LONG).show();
-        }*/
+        cacheService = new WeatherCacheService(this);
 
 
 
@@ -219,30 +203,76 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         loadingDialog.hide();
         longitude.setText(String.valueOf(channel.getItem().getLongitude()));
         latitude.setText(String.valueOf(channel.getItem().getLatitude()));
+        //location = channel.getLocation();
         this.channel = channel;
-        Context c = MainActivity.getContext();
-        File mydir = c.getDir("AstroWeatherPrivateDir", Context.MODE_PRIVATE);
-        if(mydir.exists()) {
-            Gson gson = new GsonBuilder()
-                    .create();
-            try(FileWriter writer = new FileWriter("AstroWeatherPrivateDir/" + channel.getLocation() +".json")) {
-                gson.toJson(channel, writer);
-            }catch (IOException e) {
-                Toast.makeText(MainActivity.this, "Error save to file", Toast.LENGTH_LONG).show();
-            }
+        String filename = location + ".json";
+
+        File myFile = new File(filename);
+        if(myFile.exists())
+            myFile.delete();
+
+        String stringToFile = channel.toJSON().toString();
+        FileOutputStream outputStream;
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(stringToFile.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            //e.printStackTrace();
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void serviceFailure(Exception exception) {
         if (weatherServicesHasFailed) {
             loadingDialog.hide();
             Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_LONG).show();
         }else {
-            // error doing reverse geocoding, load weather data from cache
             loadingDialog.hide();
             weatherServicesHasFailed = true;
             Toast.makeText(MainActivity.this, "Load data from memory", Toast.LENGTH_LONG).show();
+
+            String filename = location + ".json";
+            String ret = "";
+            try {
+                InputStream inputStream = MainActivity.getContext().openFileInput(filename);
+                if ( inputStream != null ) {
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    String receiveString = "";
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ( (receiveString = bufferedReader.readLine()) != null ) {
+                        stringBuilder.append(receiveString);
+                    }
+                    inputStream.close();
+                    ret = stringBuilder.toString();
+
+                }
+            }
+            catch (FileNotFoundException e) {
+                Log.e("login activity", "File not found: " + e.toString());
+                Toast.makeText(MainActivity.this, "File not found", Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                Log.e("login activity", "Can not read file: " + e.toString());
+                Toast.makeText(MainActivity.this, "Can not read file", Toast.LENGTH_LONG).show();
+            }
+
+            try {
+                JSONObject data = new JSONObject(ret);
+                Channel channel1 = new Channel();
+                channel1.populate(data, 1);
+                this.channel = channel1;
+                longitude.setText(String.valueOf(channel.getItem().getLongitude()));
+                latitude.setText(String.valueOf(channel.getItem().getLatitude()));
+                Toast.makeText(MainActivity.this, channel1.getLocation(), Toast.LENGTH_LONG).show();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+
         }
     }
 

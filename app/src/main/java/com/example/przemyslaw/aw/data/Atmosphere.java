@@ -33,7 +33,7 @@ public class Atmosphere implements JSONPopulator {
     }
 
     @Override
-    public void populate(JSONObject data) {
+    public void populate(JSONObject data, int i) {
         pressure = data.optDouble("pressure");
         humidity = data.optDouble("humidity");
         rising = data.optDouble("rising");

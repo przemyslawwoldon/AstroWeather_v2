@@ -38,25 +38,38 @@ public class Channel implements JSONPopulator {
     }
 
     @Override
-    public void populate(JSONObject data) {
+    public void populate(JSONObject data, int i) {
 
         units = new Units();
-        units.populate(data.optJSONObject("units"));
-
         item = new Item();
-        item.populate(data.optJSONObject("item"));
-
         atmosphere = new Atmosphere();
-        atmosphere.populate(data.optJSONObject("atmosphere"));
-
         wind = new Wind();
-        wind.populate(data.optJSONObject("wind"));
 
-        JSONObject locationData = data.optJSONObject("location");
-        String region = locationData.optString("region");
-        String country = locationData.optString("country");
+        try {
+            units.populate(data.getJSONObject("units"), 0);
+            item.populate(data.getJSONObject("item"), 0);
+            atmosphere.populate(data.getJSONObject("atmosphere"), 0);
+            wind.populate(data.getJSONObject("wind"), 0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        location = String.format("%s, %s", locationData.optString("city"), (region.length() != 0 ? region : country));
+if(i == 0) {
+    JSONObject locationData = data.optJSONObject("location");
+    String region = locationData.optString("region");
+    String country = locationData.optString("country");
+
+    location = String.format("%s, %s", locationData.optString("city"), (region.length() != 0 ? region : country));
+
+
+
+}else {
+    location = data.optString("location");
+
+}
+
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -69,8 +82,8 @@ public class Channel implements JSONPopulator {
             data.put("units", units.toJSON());
             data.put("item", item.toJSON());
             data.put("location", location);
-            data.put("atmosphere", atmosphere);
-            data.put("wind", wind);
+            data.put("atmosphere", atmosphere.toJSON());
+            data.put("wind", wind.toJSON());
         } catch (JSONException e) {
             e.printStackTrace();
         }

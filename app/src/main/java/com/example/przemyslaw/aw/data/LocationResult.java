@@ -16,7 +16,7 @@ public class LocationResult implements JSONPopulator {
     }
 
     @Override
-    public void populate(JSONObject data) {
+    public void populate(JSONObject data, int i) {
         address = data.optString("formatted_address");
     }
 

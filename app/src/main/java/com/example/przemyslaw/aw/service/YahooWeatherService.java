@@ -66,7 +66,7 @@ public class YahooWeatherService  {
                         return null;
                     }
                     JSONObject channelJSON = queryResults.optJSONObject("results").optJSONObject("channel");
-                    channel.populate(channelJSON);
+                    channel.populate(channelJSON, 0);
                     return channel;
                 } catch (Exception e) {
                     error = e;

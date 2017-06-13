@@ -40,7 +40,7 @@ public class Condition implements JSONPopulator {
     }
 
     @Override
-    public void populate(JSONObject data) {
+    public void populate(JSONObject data, int i) {
         code = data.optInt("code");
         temperature = data.optInt("temp");
         highTemperature = data.optInt("high");

@@ -28,7 +28,7 @@ public class Wind implements JSONPopulator {
     }
 
     @Override
-    public void populate(JSONObject data) {
+    public void populate(JSONObject data, int i) {
         chill = data.optDouble("chill");
         direction = data.optDouble("direction");
         speed = data.optDouble("speed");
