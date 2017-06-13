@@ -1,6 +1,7 @@
 package com.example.przemyslaw.aw;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -51,8 +52,14 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-
+        switch (getResources().getConfiguration().orientation){
+            case Configuration.ORIENTATION_PORTRAIT:
+                setContentView(R.layout.activity_settings);
+                break;
+            case Configuration.ORIENTATION_LANDSCAPE:
+                setContentView(R.layout.activity_settings);
+                break;
+        }
         configureDb();
         dbGetCityAndCheckList();
         init();

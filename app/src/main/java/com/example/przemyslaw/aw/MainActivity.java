@@ -3,6 +3,7 @@ package com.example.przemyslaw.aw;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -81,7 +82,17 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        switch (getResources().getConfiguration().orientation){
+            case Configuration.ORIENTATION_PORTRAIT:
+                setContentView(R.layout.activity_main);
+                break;
+            case Configuration.ORIENTATION_LANDSCAPE:
+                setContentView(R.layout.main_activity_landscape);
+                break;
+        }
+
+
+
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         init();
@@ -94,7 +105,29 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         startClock();
         MainActivity.setContext(this);
         yahooWeatherService = new YahooWeatherService(this);
-        yahooWeatherService.refreshWeather(location);
+
+        Thread timeTread = new Thread(){
+            @Override
+            public void run(){
+                try{
+                    while (!isInterrupted()){
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run(){
+                                yahooWeatherService.refreshWeather(location);
+                            }
+                        });
+                        Thread.sleep(60000 * timeRefr);
+                    }
+                }catch(InterruptedException e){}
+            }
+        };
+        timeTread.start();
+
+
+
+
+
 
         Intent intent = getIntent();
         String tR = intent.getStringExtra(SettingsActivity.TIME_REFRESH);

@@ -13,6 +13,9 @@ import com.example.przemyslaw.aw.R;
 import com.example.przemyslaw.aw.data.Channel;
 import com.example.przemyslaw.aw.data.Condition;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 
 public class BasicFragment extends Fragment{
     private ImageView weatherIconImageView;
@@ -77,16 +80,17 @@ public class BasicFragment extends Fragment{
             Condition condition = channel.getItem().getCondition();
             int weatherIconImageResource = getActivity().getResources().getIdentifier("icon_" + condition.getCode(), "drawable", getActivity().getPackageName());
             weatherIconImageView.setImageResource(weatherIconImageResource);
+            NumberFormat formatter = new DecimalFormat("#0.00");
+
             if(units.equals("c"))
                 temperatureTextView.setText(getString(R.string.temperature_output, condition.getTemperature(), channel.getUnits().getTemperature()));
             else {
                 double c = (condition.getTemperature() * 1.8 ) + 32;
-                temperatureTextView.setText(String.valueOf(c) + " °F");
+                temperatureTextView.setText(formatter.format(c) + " °F");
             }
             conditionTextView.setText(condition.getDescription());
             locationTextView.setText(channel.getLocation());
-            String p = String.valueOf(channel.getAtmosphere().getPressure()) + channel.getUnits().getPressure();
-            pressureTextView.setText(p);
+            pressureTextView.setText(formatter.format(channel.getAtmosphere().getPressure()) + " " + channel.getUnits().getPressure());
         }
     }
 

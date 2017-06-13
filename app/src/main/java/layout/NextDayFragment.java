@@ -13,6 +13,9 @@ import com.example.przemyslaw.aw.R;
 import com.example.przemyslaw.aw.data.Channel;
 import com.example.przemyslaw.aw.data.Condition;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 
 public class NextDayFragment extends Fragment {
     private ImageView weatherIconImageView1;
@@ -95,6 +98,10 @@ public class NextDayFragment extends Fragment {
         Channel channel = mainActivity.getChannel();
         String units = mainActivity.getTemperatureUnits();
         if(channel != null) {
+            NumberFormat formatter = new DecimalFormat("#0.00");
+
+
+
             Condition[] forecast = channel.getItem().getForecast();
             int weatherIconImageResource = getActivity().getResources().getIdentifier("icon_" + forecast[0].getCode(), "drawable", getActivity().getPackageName());
             weatherIconImageView1.setImageResource(weatherIconImageResource);
@@ -105,8 +112,8 @@ public class NextDayFragment extends Fragment {
             }else {
                 double cH = (forecast[0].getHighTemperature() * 1.8 ) + 32;
                 double cL = (forecast[0].getLowTemperature() * 1.8 ) + 32;
-                highTextView1.setText(String.valueOf(cH) + " °F");
-                lowTextView1.setText(String.valueOf(cL) + " °F");
+                highTextView1.setText(formatter.format(cH) + " °F");
+                lowTextView1.setText(formatter.format(cL) + " °F");
             }
 
             int weatherIconImageResource2 = getActivity().getResources().getIdentifier("icon_" + forecast[1].getCode(), "drawable", getActivity().getPackageName());
@@ -118,8 +125,8 @@ public class NextDayFragment extends Fragment {
             }else {
                 double cH = (forecast[1].getHighTemperature() * 1.8 ) + 32;
                 double cL = (forecast[1].getLowTemperature() * 1.8 ) + 32;
-                highTextView2.setText(String.valueOf(cH) + " °F");
-                lowTextView2.setText(String.valueOf(cL) + " °F");
+                highTextView2.setText(formatter.format(cH) + " °F");
+                lowTextView2.setText(formatter.format(cL) + " °F");
             }
 
             int weatherIconImageResource3 = getActivity().getResources().getIdentifier("icon_" + forecast[2].getCode(), "drawable", getActivity().getPackageName());
@@ -131,8 +138,8 @@ public class NextDayFragment extends Fragment {
             }else {
                 double cH = (forecast[2].getHighTemperature() * 1.8 ) + 32;
                 double cL = (forecast[2].getLowTemperature() * 1.8 ) + 32;
-                highTextView3.setText(String.valueOf(cH) + " °F");
-                lowTextView3.setText(String.valueOf(cL) + " °F");
+                highTextView3.setText(formatter.format(cH) + " °F");
+                lowTextView3.setText(formatter.format(cL) + " °F");
             }
         }
     }

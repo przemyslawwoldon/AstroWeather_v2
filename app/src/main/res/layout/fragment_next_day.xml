@@ -5,20 +5,20 @@
     tools:context="layout.NextDayFragment">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/weatherIconImageView1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/condition_icon"
                 android:src="@drawable/icon_na" />
@@ -38,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="High"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold" />
@@ -47,20 +48,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="Low"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/weatherIconImageView2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/condition_icon"
                 android:src="@drawable/icon_na" />
@@ -80,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="High"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold" />
@@ -89,20 +92,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="Low"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/weatherIconImageView3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/condition_icon"
                 android:src="@drawable/icon_na" />
@@ -122,6 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="High"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold" />
@@ -131,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="Low"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
