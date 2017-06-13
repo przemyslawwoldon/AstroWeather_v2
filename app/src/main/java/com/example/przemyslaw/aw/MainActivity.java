@@ -124,11 +124,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         };
         timeTread.start();
 
-
-
-
-
-
         Intent intent = getIntent();
         String tR = intent.getStringExtra(SettingsActivity.TIME_REFRESH);
         String locationFromSettings = intent.getStringExtra(SettingsActivity.LOCATION);

@@ -54,19 +54,19 @@ public class Channel implements JSONPopulator {
             e.printStackTrace();
         }
 
-if(i == 0) {
-    JSONObject locationData = data.optJSONObject("location");
-    String region = locationData.optString("region");
-    String country = locationData.optString("country");
+        if(i == 0) {
+            JSONObject locationData = data.optJSONObject("location");
+            String region = locationData.optString("region");
+            String country = locationData.optString("country");
 
-    location = String.format("%s, %s", locationData.optString("city"), (region.length() != 0 ? region : country));
+            location = String.format("%s, %s", locationData.optString("city"), (region.length() != 0 ? region : country));
 
 
 
-}else {
-    location = data.optString("location");
+        }else {
+            location = data.optString("location");
 
-}
+        }
 
 
 
