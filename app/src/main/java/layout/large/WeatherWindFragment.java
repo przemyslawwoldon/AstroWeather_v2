@@ -50,13 +50,21 @@ public class WeatherWindFragment extends Fragment {
                              Bundle savedInstanceState) {
         mainActivity = (MainActivity) getActivity();
 
+
+
+        BasicFragment basicFragment = BasicFragment.newInstance();
+        AdditionFragment additionFragment = AdditionFragment.newInstance();
+
+
+
+
+
         View view = inflater.inflate(R.layout.fragment_weather_wind, container, false);
-        BasicFragment sunFragmentL = BasicFragment.newInstance();
-        AdditionFragment moonFragmentL = AdditionFragment.newInstance();
+
         android.support.v4.app.FragmentManager manager = getFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment1, sunFragmentL);
-        fragmentTransaction.replace(R.id.fragment2, moonFragmentL);
+        fragmentTransaction.replace(R.id.fragment103, basicFragment);
+        fragmentTransaction.replace(R.id.fragment104, additionFragment);
         fragmentTransaction.commit();
 
         refreshData();

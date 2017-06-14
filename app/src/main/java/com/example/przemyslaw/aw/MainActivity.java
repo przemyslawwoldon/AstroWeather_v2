@@ -109,18 +109,79 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
             }
             MainActivity.setContext(this);
             yahooWeatherService = new YahooWeatherService(this);
+            actualTime = (TextView) findViewById(R.id.textViewActualTime);
+            longitude = (TextView) findViewById(R.id.textViewActualLong);
+            latitude = (TextView) findViewById(R.id.textViewActualLat);
+            loadingDialog = new ProgressDialog(this);
+            loadingDialog.setMessage(getString(R.string.loading));
+            loadingDialog.setCancelable(false);
+            loadingDialog.show();
             yahooWeatherService.refreshWeather(location);
             ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
             pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
-        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
+        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE){
             switch (getResources().getConfiguration().orientation){
                 case Configuration.ORIENTATION_PORTRAIT:
-                    setContentView(R.layout.activity_main);
+                    setContentView(R.layout.activity_main_lar);
                     MainActivity.setContext(this);
                     yahooWeatherService = new YahooWeatherService(this);
+                    actualTime = (TextView) findViewById(R.id.textViewActualTime);
+                    longitude = (TextView) findViewById(R.id.textViewActualLong);
+                    latitude = (TextView) findViewById(R.id.textViewActualLat);
+
+                    loadingDialog = new ProgressDialog(this);
+                    loadingDialog.setMessage(getString(R.string.loading));
+                    loadingDialog.setCancelable(false);
+                    loadingDialog.show();
+
+
+                    yahooWeatherService.refreshWeather(location);
+                    BasicFragmentL basicFragmentL = BasicFragmentL.newInstance();
+                    AdditionFragmentL additionFragmentL = AdditionFragmentL.newInstance();
+                    NextDayFragmentL nextDayFragmentL = NextDayFragmentL.newInstance();
+                    SunFragmentL sunFragmentL = SunFragmentL.newInstance();
+                    MoonFragmentL moonFragmentL = MoonFragmentL.newInstance();
+
+                    android.app.FragmentManager manager = getFragmentManager();
+                    android.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment1, basicFragmentL);
+                    fragmentTransaction.replace(R.id.fragment2, additionFragmentL);
+                    fragmentTransaction.replace(R.id.fragment3, sunFragmentL);
+                    fragmentTransaction.replace(R.id.fragment4, moonFragmentL);
+                    fragmentTransaction.replace(R.id.fragment5, nextDayFragmentL);
+                    fragmentTransaction.commit();
+                    break;
+                case Configuration.ORIENTATION_LANDSCAPE:
+                    setContentView(R.layout.activity_main_large_land);
+                    MainActivity.setContext(this);
+                    yahooWeatherService = new YahooWeatherService(this);
+                    actualTime = (TextView) findViewById(R.id.textViewActualTime);
+                    longitude = (TextView) findViewById(R.id.textViewActualLong);
+                    latitude = (TextView) findViewById(R.id.textViewActualLat);
+                    loadingDialog = new ProgressDialog(this);
+                    loadingDialog.setMessage(getString(R.string.loading));
+                    loadingDialog.setCancelable(false);
+                    loadingDialog.show();
                     yahooWeatherService.refreshWeather(location);
 
+
+                    ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
+                    pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
+                    break;
+            }
+
+            /* switch (getResources().getConfiguration().orientation){
+                case Configuration.ORIENTATION_PORTRAIT:
+                    setContentView(R.layout.activity_main_lar);
+                    MainActivity.setContext(this);
+                    yahooWeatherService = new YahooWeatherService(this);
+                    actualTime = (TextView) findViewById(R.id.textViewActualTime);
+                    longitude = (TextView) findViewById(R.id.textViewActualLong);
+                    latitude = (TextView) findViewById(R.id.textViewActualLat);
+                   // yahooWeatherService.refreshWeather(location);
+
+    Toast.makeText(MainActivity.this, "Load data from memory", Toast.LENGTH_LONG).show();
                     BasicFragmentL basicFragmentL = BasicFragmentL.newInstance();
                     AdditionFragmentL additionFragmentL = AdditionFragmentL.newInstance();
                     NextDayFragmentL nextDayFragmentL = NextDayFragmentL.newInstance();
@@ -141,24 +202,28 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                 setContentView(R.layout.activity_main_large_land);
                 MainActivity.setContext(this);
                 yahooWeatherService = new YahooWeatherService(this);
+                actualTime = (TextView) findViewById(R.id.textViewActualTime);
+                longitude = (TextView) findViewById(R.id.textViewActualLong);
+                latitude = (TextView) findViewById(R.id.textViewActualLat);
                 yahooWeatherService.refreshWeather(location);
 
+                Toast.makeText(MainActivity.this, "Load data from memory", Toast.LENGTH_LONG).show();
                 ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
                 pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
                 break;
-            }
+            }*/
         }
-
+   // init();
+       // yahooWeatherService = new YahooWeatherService(this);
 /*
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 */
-        init();
 
-        loadingDialog = new ProgressDialog(this);
-        loadingDialog.setMessage(getString(R.string.loading));
-        loadingDialog.setCancelable(false);
-        loadingDialog.show();
+//        loadingDialog = new ProgressDialog(this);
+//        loadingDialog.setMessage(getString(R.string.loading));
+//        loadingDialog.setCancelable(false);
+//        loadingDialog.show();
 
         startClock();
 
@@ -171,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                         runOnUiThread(new Runnable(){
                             @Override
                             public void run(){
-                                yahooWeatherService.refreshWeather(location);
+                               //yahooWeatherService.refreshWeather("chicago, il");
                             }
                         });
                         Thread.sleep(60000 * timeRefr);
@@ -231,13 +296,13 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         public android.support.v4.app.Fragment getItem(int pos) {
             switch(pos) {
                 default:
-                    return SunMoonFragment.newInstance();
+                    return NextDayFragmentLand.newInstance();
                 case 0:
                     return SunMoonFragment.newInstance();
                 case 1:
-                    return WeatherWindFragment.newInstance();
-                case 2:
                     return NextDayFragmentLand.newInstance();
+                case 2:
+                    return WeatherWindFragment.newInstance();
             }
         }
         @Override
@@ -305,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         loadingDialog.hide();
         longitude.setText(String.valueOf(channel.getItem().getLongitude()));
         latitude.setText(String.valueOf(channel.getItem().getLatitude()));
-        //location = channel.getLocation();
+        location = channel.getLocation();
         this.channel = channel;
         String filename = location + ".json";
         File myFile = new File(filename);

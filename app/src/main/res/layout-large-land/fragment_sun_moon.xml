@@ -13,7 +13,7 @@
 
 
         <fragment
-            android:id="@+id/fragment1"
+            android:id="@+id/fragment100"
             android:name="layout.large.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="203dp"
@@ -21,7 +21,7 @@
             tools:layout="@layout/fragment_blank"></fragment>
 
         <fragment
-            android:id="@+id/fragment2"
+            android:id="@+id/fragment101"
             android:name="layout.large.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="203dp"

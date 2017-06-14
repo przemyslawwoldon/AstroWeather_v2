@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,20 +13,20 @@
 
 
         <fragment
-            android:id="@+id/fragment1"
-            android:name="layout.large.BlankFragment"
+            android:id="@+id/fragment103"
+            android:name="layout.large.BlankFragment2"
             android:layout_width="match_parent"
             android:layout_height="203dp"
             android:layout_weight="1"
-            tools:layout="@layout/fragment_blank"></fragment>
+            tools:layout="@layout/fragment_blank_2"></fragment>
 
         <fragment
-            android:id="@+id/fragment2"
-            android:name="layout.large.BlankFragment"
+            android:id="@+id/fragment104"
+            android:name="layout.large.BlankFragment2"
             android:layout_width="match_parent"
             android:layout_height="203dp"
             android:layout_weight="1"
-            tools:layout="@layout/fragment_blank"></fragment>
+            tools:layout="@layout/fragment_blank_2"></fragment>
     </LinearLayout>
 
 </FrameLayout>

@@ -52,8 +52,8 @@ public class SunMoonFragment extends Fragment {
         MoonFragment moonFragmentL = MoonFragment.newInstance();
         android.support.v4.app.FragmentManager manager = getFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment1, sunFragmentL);
-        fragmentTransaction.replace(R.id.fragment2, moonFragmentL);
+        fragmentTransaction.replace(R.id.fragment100, sunFragmentL);
+        fragmentTransaction.replace(R.id.fragment101, moonFragmentL);
         fragmentTransaction.commit();
 
         refreshData();
