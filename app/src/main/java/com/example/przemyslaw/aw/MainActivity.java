@@ -107,11 +107,11 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                     setContentView(R.layout.activity_main);
                     break;
             }
-            ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
-            pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
             MainActivity.setContext(this);
             yahooWeatherService = new YahooWeatherService(this);
             yahooWeatherService.refreshWeather(location);
+            ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
+            pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
         } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
             switch (getResources().getConfiguration().orientation){
@@ -139,11 +139,12 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
             case Configuration.ORIENTATION_LANDSCAPE:
                 setContentView(R.layout.activity_main_large_land);
-                ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
-                pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
                 MainActivity.setContext(this);
                 yahooWeatherService = new YahooWeatherService(this);
                 yahooWeatherService.refreshWeather(location);
+
+                ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
+                pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
                 break;
             }
         }
