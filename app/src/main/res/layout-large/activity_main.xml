@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="Time : " />
+
+        <TextView
+            android:id="@+id/textViewActualTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="00:00:00" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewLong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="Longitude : " />
+
+        <TextView
+            android:id="@+id/textViewActualLong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="00,00" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewLat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="LatitudeD : " />
+
+        <TextView
+            android:id="@+id/textViewActualLat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="00,00" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:layout_weight="0.00"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.39">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <fragment
+                android:id="@+id/fragment1"
+                android:name="layout.BasicFragment"
+                android:layout_width="match_parent"
+                android:layout_height="203dp"
+                android:layout_weight="1"
+                tools:layout="@layout/fragment_basic"></fragment>
+
+            <fragment
+                android:id="@+id/fragment1"
+                android:name="layout.AdditionFragment"
+                android:layout_width="match_parent"
+                android:layout_height="203dp"
+                android:layout_weight="1"
+                tools:layout="@layout/fragment_addition"></fragment>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <fragment
+                android:id="@+id/fragment1"
+                android:name="layout.SunFragment"
+                android:layout_width="match_parent"
+                android:layout_height="203dp"
+                android:layout_weight="1"
+                tools:layout="@layout/fragment_sun"></fragment>
+
+            <fragment
+                android:id="@+id/fragment1"
+                android:name="layout.MoonFragment"
+                android:layout_width="match_parent"
+                android:layout_height="203dp"
+                android:layout_weight="1"
+                tools:layout="@layout/fragment_moon"></fragment>
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

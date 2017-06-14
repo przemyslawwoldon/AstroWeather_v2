@@ -82,20 +82,42 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        switch (getResources().getConfiguration().orientation){
+        /*switch (getResources().getConfiguration().orientation){
             case Configuration.ORIENTATION_PORTRAIT:
                 setContentView(R.layout.activity_main);
                 break;
             case Configuration.ORIENTATION_LANDSCAPE:
                 setContentView(R.layout.main_activity_landscape);
                 break;
+        }*/
+        if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+            setContentView(R.layout.activity_main);
+            ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
+            pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        }
+        else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
+            setContentView(R.layout.activity_main);
+
+
+           /* double latitudeTemp = calculateLaitude();
+            double longitudeTemp = calculateLongitude();
+            android.app.FragmentManager manager = getFragmentManager();
+            SunFragmentF sunFragmentF = SunFragmentF.newInstance(String.valueOf(latitudeTemp), String.valueOf(longitudeTemp), String.valueOf(timeRefr));
+            MoonFragmentF moonFragmentF = MoonFragmentF.newInstance(String.valueOf(latitudeTemp), String.valueOf(longitudeTemp), String.valueOf(timeRefr));
+            android.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment1, sunFragmentF);
+            fragmentTransaction.replace(R.id.fragment2, moonFragmentF);
+            fragmentTransaction.commit();
+            //threadFrag.start();*/
+
+
         }
 
-
-
+/*
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        init();
+       */
+       init();
 
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage(getString(R.string.loading));
