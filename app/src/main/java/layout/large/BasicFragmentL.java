@@ -1,7 +1,8 @@
-package layout;
+package layout.large;
+
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,11 @@ import com.example.przemyslaw.aw.data.Condition;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+/**
+ * Created by Przemyslaw on 2017-06-14.
+ */
 
-public class BasicFragment extends Fragment {
+public class BasicFragmentL extends Fragment {
     private ImageView weatherIconImageView;
     private TextView temperatureTextView;
     private TextView conditionTextView;
@@ -26,11 +30,11 @@ public class BasicFragment extends Fragment {
 
     MainActivity mainActivity;
 
-    public BasicFragment() {
+    public BasicFragmentL() {
     }
 
-    public static BasicFragment newInstance() {
-        BasicFragment fragment = new BasicFragment();
+    public static BasicFragmentL newInstance() {
+        BasicFragmentL fragment = new BasicFragmentL();
         return fragment;
     }
 
@@ -40,7 +44,7 @@ public class BasicFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
 
-        View view = inflater.inflate(R.layout.fragment_basic, container, false);
+        View view = inflater.inflate(R.layout.fragment_basic_l, container, false);
         weatherIconImageView = (ImageView) view.findViewById(R.id.weatherIconImageView);
         temperatureTextView = (TextView) view.findViewById(R.id.temperatureTextView);
         conditionTextView = (TextView) view.findViewById(R.id.conditionTextView);
@@ -95,3 +99,4 @@ public class BasicFragment extends Fragment {
     }
 
 }
+

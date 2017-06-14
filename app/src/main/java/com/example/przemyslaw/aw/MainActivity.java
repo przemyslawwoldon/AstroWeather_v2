@@ -39,6 +39,14 @@ import layout.BasicFragment;
 import layout.MoonFragment;
 import layout.NextDayFragment;
 import layout.SunFragment;
+import layout.large.AdditionFragmentL;
+import layout.large.BasicFragmentL;
+import layout.large.MoonFragmentL;
+import layout.large.NextDayFragmentL;
+import layout.large.NextDayFragmentLand;
+import layout.large.SunFragmentL;
+import layout.large.SunMoonFragment;
+import layout.large.WeatherWindFragment;
 
 public class MainActivity extends AppCompatActivity implements WeatherServiceListener{
 
@@ -91,33 +99,60 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                 break;
         }*/
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-            setContentView(R.layout.activity_main);
+            switch (getResources().getConfiguration().orientation){
+                case Configuration.ORIENTATION_PORTRAIT:
+                    setContentView(R.layout.activity_main);
+                    break;
+                case Configuration.ORIENTATION_LANDSCAPE:
+                    setContentView(R.layout.activity_main);
+                    break;
+            }
             ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
             pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        }
-        else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
-            setContentView(R.layout.activity_main);
+            MainActivity.setContext(this);
+            yahooWeatherService = new YahooWeatherService(this);
+            yahooWeatherService.refreshWeather(location);
 
+        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
+            switch (getResources().getConfiguration().orientation){
+                case Configuration.ORIENTATION_PORTRAIT:
+                    setContentView(R.layout.activity_main);
+                    MainActivity.setContext(this);
+                    yahooWeatherService = new YahooWeatherService(this);
+                    yahooWeatherService.refreshWeather(location);
 
-           /* double latitudeTemp = calculateLaitude();
-            double longitudeTemp = calculateLongitude();
-            android.app.FragmentManager manager = getFragmentManager();
-            SunFragmentF sunFragmentF = SunFragmentF.newInstance(String.valueOf(latitudeTemp), String.valueOf(longitudeTemp), String.valueOf(timeRefr));
-            MoonFragmentF moonFragmentF = MoonFragmentF.newInstance(String.valueOf(latitudeTemp), String.valueOf(longitudeTemp), String.valueOf(timeRefr));
-            android.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment1, sunFragmentF);
-            fragmentTransaction.replace(R.id.fragment2, moonFragmentF);
-            fragmentTransaction.commit();
-            //threadFrag.start();*/
+                    BasicFragmentL basicFragmentL = BasicFragmentL.newInstance();
+                    AdditionFragmentL additionFragmentL = AdditionFragmentL.newInstance();
+                    NextDayFragmentL nextDayFragmentL = NextDayFragmentL.newInstance();
+                    SunFragmentL sunFragmentL = SunFragmentL.newInstance();
+                    MoonFragmentL moonFragmentL = MoonFragmentL.newInstance();
 
+                    android.app.FragmentManager manager = getFragmentManager();
+                    android.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment1, basicFragmentL);
+                    fragmentTransaction.replace(R.id.fragment2, additionFragmentL);
+                    fragmentTransaction.replace(R.id.fragment3, sunFragmentL);
+                    fragmentTransaction.replace(R.id.fragment4, moonFragmentL);
+                    fragmentTransaction.replace(R.id.fragment5, nextDayFragmentL);
+                    fragmentTransaction.commit();
+                    break;
 
+            case Configuration.ORIENTATION_LANDSCAPE:
+                setContentView(R.layout.activity_main_large_land);
+                ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
+                pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
+                MainActivity.setContext(this);
+                yahooWeatherService = new YahooWeatherService(this);
+                yahooWeatherService.refreshWeather(location);
+                break;
+            }
         }
 
 /*
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-       */
-       init();
+*/
+        init();
 
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage(getString(R.string.loading));
@@ -125,8 +160,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         loadingDialog.show();
 
         startClock();
-        MainActivity.setContext(this);
-        yahooWeatherService = new YahooWeatherService(this);
+
 
         Thread timeTread = new Thread(){
             @Override
@@ -186,6 +220,29 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
             }
         };
         timeTread.start();
+    }
+
+    public static class MyPagerAdapterLarge extends FragmentPagerAdapter {
+        public MyPagerAdapterLarge(FragmentManager fm) {
+            super(fm);
+        }
+        @Override
+        public android.support.v4.app.Fragment getItem(int pos) {
+            switch(pos) {
+                default:
+                    return SunMoonFragment.newInstance();
+                case 0:
+                    return SunMoonFragment.newInstance();
+                case 1:
+                    return WeatherWindFragment.newInstance();
+                case 2:
+                    return NextDayFragmentLand.newInstance();
+            }
+        }
+        @Override
+        public int getCount() {
+            return 4;
+        }
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {

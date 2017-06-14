@@ -1,8 +1,8 @@
-package layout;
+package layout.large;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +12,12 @@ import com.example.przemyslaw.aw.MainActivity;
 import com.example.przemyslaw.aw.R;
 import com.example.przemyslaw.aw.data.Channel;
 
+/**
+ * Created by Przemyslaw on 2017-06-14.
+ */
 
-public class AdditionFragment extends Fragment {
+public class AdditionFragmentL extends Fragment {
+
     private TextView windSpeed;
     private TextView windDirection;
     private TextView atmosphereHumidity;
@@ -21,11 +25,11 @@ public class AdditionFragment extends Fragment {
 
     MainActivity mainActivity;
 
-    public AdditionFragment() {
+    public AdditionFragmentL() {
     }
 
-    public static AdditionFragment newInstance() {
-        AdditionFragment fragment = new AdditionFragment();
+    public static AdditionFragmentL newInstance() {
+        AdditionFragmentL fragment = new AdditionFragmentL();
         return fragment;
     }
 
@@ -35,7 +39,7 @@ public class AdditionFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
 
-        View view = inflater.inflate(R.layout.fragment_addition, container, false);
+        View view = inflater.inflate(R.layout.fragment_addition_l, container, false);
         windSpeed = (TextView) view.findViewById(R.id.textViewSpeed);;
         windDirection = (TextView) view.findViewById(R.id.textViewDirection);;
         atmosphereHumidity = (TextView) view.findViewById(R.id.textViewHumidity);

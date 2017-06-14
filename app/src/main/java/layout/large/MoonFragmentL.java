@@ -1,7 +1,7 @@
-package layout;
+package layout.large;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,11 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class MoonFragment extends Fragment {
+/**
+ * Created by Przemyslaw on 2017-06-14.
+ */
+
+public class MoonFragmentL extends Fragment {
     TextView riseTime;
     TextView setTime;
     TextView fullTime;
@@ -29,11 +33,11 @@ public class MoonFragment extends Fragment {
     Calendar calendar;
     MainActivity mainActivity;
 
-    public MoonFragment() {
+    public MoonFragmentL() {
     }
 
-    public static MoonFragment newInstance() {
-        MoonFragment fragment = new MoonFragment();
+    public static MoonFragmentL newInstance() {
+        MoonFragmentL fragment = new MoonFragmentL();
         return fragment;
     }
 
@@ -43,7 +47,7 @@ public class MoonFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
 
-        View view = inflater.inflate(R.layout.fragment_moon, container, false);
+        View view = inflater.inflate(R.layout.fragment_moon_l, container, false);
         riseTime = (TextView) view.findViewById(R.id.MoonFargtextViewRiseMoon);
         setTime = (TextView) view.findViewById(R.id.MoonFargtextViewSetMoon);
         fullTime = (TextView) view.findViewById(R.id.MoonFargtextViewFullMoon);
