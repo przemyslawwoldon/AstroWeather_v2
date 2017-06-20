@@ -2,12 +2,9 @@ package com.example.przemyslaw.aw.service;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import com.example.przemyslaw.aw.data.Channel;
 import com.example.przemyslaw.aw.listener.WeatherServiceListener;
-
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,6 +16,7 @@ import java.net.URLConnection;
  */
 
 public class YahooWeatherService  {
+
     private WeatherServiceListener listener;
     private Exception error;
     private String temperatureUnit = "c";
@@ -81,9 +79,7 @@ public class YahooWeatherService  {
                     } else {
                         listener.serviceSuccess(channel);
                     }
-
                 }
-
             }.execute(location);
 
         }
@@ -93,4 +89,5 @@ public class YahooWeatherService  {
             super(detailMessage);
         }
     }
+
 }

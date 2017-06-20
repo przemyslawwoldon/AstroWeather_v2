@@ -8,6 +8,7 @@ import org.json.JSONObject;
  */
 
 public class Condition implements JSONPopulator {
+
     private int code;
     private int temperature;
     private int highTemperature;
@@ -52,7 +53,6 @@ public class Condition implements JSONPopulator {
     @Override
     public JSONObject toJSON() {
         JSONObject data = new JSONObject();
-
         try {
             data.put("code", code);
             data.put("temp", temperature);
@@ -63,7 +63,7 @@ public class Condition implements JSONPopulator {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return data;
     }
+
 }

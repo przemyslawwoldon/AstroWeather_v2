@@ -8,6 +8,7 @@ import org.json.JSONObject;
  */
 
 public class Units implements JSONPopulator {
+
     private String temperature;
     private String pressure;
     private String speed;
@@ -34,7 +35,6 @@ public class Units implements JSONPopulator {
     @Override
     public JSONObject toJSON() {
         JSONObject data = new JSONObject();
-
         try {
             data.put("temperature", temperature);
             data.put("pressure", pressure);
@@ -42,7 +42,7 @@ public class Units implements JSONPopulator {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return data;
     }
+
 }

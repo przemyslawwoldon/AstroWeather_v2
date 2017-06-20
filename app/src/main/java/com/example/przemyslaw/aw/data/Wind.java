@@ -2,7 +2,6 @@ package com.example.przemyslaw.aw.data;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +10,7 @@ import org.json.JSONObject;
  */
 
 public class Wind implements JSONPopulator {
+
     private double chill;
     private double direction;
     private double speed;
@@ -45,7 +45,7 @@ public class Wind implements JSONPopulator {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return data;
     }
+
 }

@@ -13,23 +13,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.przemyslaw.aw.data.Channel;
 import com.example.przemyslaw.aw.db.City;
 import com.example.przemyslaw.aw.db.DaoMaster;
 import com.example.przemyslaw.aw.db.DaoSession;
 import com.example.przemyslaw.aw.listener.WeatherServiceListener;
 import com.example.przemyslaw.aw.service.YahooWeatherService;
-
 import org.greenrobot.greendao.database.Database;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, WeatherServiceListener{
+
     private Button commitCity;
     private Button commitAll;
-
     private TextView textViewCity;
     private Spinner spinnerCity;
     private CheckBox tF;
@@ -63,7 +60,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         configureDb();
         dbGetCityAndCheckList();
         init();
-
         Intent intent = getIntent();
         String tR = intent.getStringExtra(MainActivity.M_TIME_REFRESH );
         String temperatreUnits = intent.getStringExtra(MainActivity.M_TEMPERATURE_UNITS);

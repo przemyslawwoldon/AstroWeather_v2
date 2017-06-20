@@ -90,14 +90,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*switch (getResources().getConfiguration().orientation){
-            case Configuration.ORIENTATION_PORTRAIT:
-                setContentView(R.layout.activity_main);
-                break;
-            case Configuration.ORIENTATION_LANDSCAPE:
-                setContentView(R.layout.main_activity_landscape);
-                break;
-        }*/
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
             switch (getResources().getConfiguration().orientation){
                 case Configuration.ORIENTATION_PORTRAIT:
@@ -107,124 +99,51 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                     setContentView(R.layout.activity_main);
                     break;
             }
-            MainActivity.setContext(this);
-            yahooWeatherService = new YahooWeatherService(this);
             actualTime = (TextView) findViewById(R.id.textViewActualTime);
             longitude = (TextView) findViewById(R.id.textViewActualLong);
             latitude = (TextView) findViewById(R.id.textViewActualLat);
-            loadingDialog = new ProgressDialog(this);
-            loadingDialog.setMessage(getString(R.string.loading));
-            loadingDialog.setCancelable(false);
-            loadingDialog.show();
-            yahooWeatherService.refreshWeather(location);
             ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
             pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
-        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE){
-            switch (getResources().getConfiguration().orientation){
+        } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            switch (getResources().getConfiguration().orientation) {
                 case Configuration.ORIENTATION_PORTRAIT:
-                    setContentView(R.layout.activity_main_lar);
-                    MainActivity.setContext(this);
-                    yahooWeatherService = new YahooWeatherService(this);
-                    actualTime = (TextView) findViewById(R.id.textViewActualTime);
-                    longitude = (TextView) findViewById(R.id.textViewActualLong);
-                    latitude = (TextView) findViewById(R.id.textViewActualLat);
+                    setContentView(R.layout.activity_main_large);
 
-                    loadingDialog = new ProgressDialog(this);
-                    loadingDialog.setMessage(getString(R.string.loading));
-                    loadingDialog.setCancelable(false);
-                    loadingDialog.show();
-
-
-                    yahooWeatherService.refreshWeather(location);
                     BasicFragmentL basicFragmentL = BasicFragmentL.newInstance();
                     AdditionFragmentL additionFragmentL = AdditionFragmentL.newInstance();
                     NextDayFragmentL nextDayFragmentL = NextDayFragmentL.newInstance();
                     SunFragmentL sunFragmentL = SunFragmentL.newInstance();
                     MoonFragmentL moonFragmentL = MoonFragmentL.newInstance();
 
-                    android.app.FragmentManager manager = getFragmentManager();
+                   /* android.app.FragmentManager manager = getFragmentManager();
                     android.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment1, basicFragmentL);
                     fragmentTransaction.replace(R.id.fragment2, additionFragmentL);
                     fragmentTransaction.replace(R.id.fragment3, sunFragmentL);
                     fragmentTransaction.replace(R.id.fragment4, moonFragmentL);
                     fragmentTransaction.replace(R.id.fragment5, nextDayFragmentL);
-                    fragmentTransaction.commit();
+                    fragmentTransaction.commit();*/
                     break;
                 case Configuration.ORIENTATION_LANDSCAPE:
                     setContentView(R.layout.activity_main_large_land);
-                    MainActivity.setContext(this);
-                    yahooWeatherService = new YahooWeatherService(this);
-                    actualTime = (TextView) findViewById(R.id.textViewActualTime);
-                    longitude = (TextView) findViewById(R.id.textViewActualLong);
-                    latitude = (TextView) findViewById(R.id.textViewActualLat);
-                    loadingDialog = new ProgressDialog(this);
-                    loadingDialog.setMessage(getString(R.string.loading));
-                    loadingDialog.setCancelable(false);
-                    loadingDialog.show();
-                    yahooWeatherService.refreshWeather(location);
-
-
                     ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
                     pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
                     break;
             }
-
-            /* switch (getResources().getConfiguration().orientation){
-                case Configuration.ORIENTATION_PORTRAIT:
-                    setContentView(R.layout.activity_main_lar);
-                    MainActivity.setContext(this);
-                    yahooWeatherService = new YahooWeatherService(this);
-                    actualTime = (TextView) findViewById(R.id.textViewActualTime);
-                    longitude = (TextView) findViewById(R.id.textViewActualLong);
-                    latitude = (TextView) findViewById(R.id.textViewActualLat);
-                   // yahooWeatherService.refreshWeather(location);
-
-    Toast.makeText(MainActivity.this, "Load data from memory", Toast.LENGTH_LONG).show();
-                    BasicFragmentL basicFragmentL = BasicFragmentL.newInstance();
-                    AdditionFragmentL additionFragmentL = AdditionFragmentL.newInstance();
-                    NextDayFragmentL nextDayFragmentL = NextDayFragmentL.newInstance();
-                    SunFragmentL sunFragmentL = SunFragmentL.newInstance();
-                    MoonFragmentL moonFragmentL = MoonFragmentL.newInstance();
-
-                    android.app.FragmentManager manager = getFragmentManager();
-                    android.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment1, basicFragmentL);
-                    fragmentTransaction.replace(R.id.fragment2, additionFragmentL);
-                    fragmentTransaction.replace(R.id.fragment3, sunFragmentL);
-                    fragmentTransaction.replace(R.id.fragment4, moonFragmentL);
-                    fragmentTransaction.replace(R.id.fragment5, nextDayFragmentL);
-                    fragmentTransaction.commit();
-                    break;
-
-            case Configuration.ORIENTATION_LANDSCAPE:
-                setContentView(R.layout.activity_main_large_land);
-                MainActivity.setContext(this);
-                yahooWeatherService = new YahooWeatherService(this);
-                actualTime = (TextView) findViewById(R.id.textViewActualTime);
-                longitude = (TextView) findViewById(R.id.textViewActualLong);
-                latitude = (TextView) findViewById(R.id.textViewActualLat);
-                yahooWeatherService.refreshWeather(location);
-
-                Toast.makeText(MainActivity.this, "Load data from memory", Toast.LENGTH_LONG).show();
-                ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
-                pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
-                break;
-            }*/
+            actualTime = (TextView) findViewById(R.id.textViewActualTime);
+            longitude = (TextView) findViewById(R.id.textViewActualLong);
+            latitude = (TextView) findViewById(R.id.textViewActualLat);
         }
    // init();
-       // yahooWeatherService = new YahooWeatherService(this);
-/*
-        ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
-        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-*/
 
-//        loadingDialog = new ProgressDialog(this);
-//        loadingDialog.setMessage(getString(R.string.loading));
-//        loadingDialog.setCancelable(false);
-//        loadingDialog.show();
-
+        MainActivity.setContext(this);
+        yahooWeatherService = new YahooWeatherService(this);
+        loadingDialog = new ProgressDialog(this);
+        loadingDialog.setMessage(getString(R.string.loading));
+        loadingDialog.setCancelable(false);
+        loadingDialog.show();
+        yahooWeatherService.refreshWeather(location);
         startClock();
 
 
@@ -295,13 +214,13 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         @Override
         public android.support.v4.app.Fragment getItem(int pos) {
             switch(pos) {
-                default:
-                    return NextDayFragmentLand.newInstance();
                 case 0:
                     return SunMoonFragment.newInstance();
                 case 1:
-                    return NextDayFragmentLand.newInstance();
+                    return WeatherWindFragment.newInstance();
                 case 2:
+                    return NextDayFragmentLand.newInstance();
+                default:
                     return WeatherWindFragment.newInstance();
             }
         }

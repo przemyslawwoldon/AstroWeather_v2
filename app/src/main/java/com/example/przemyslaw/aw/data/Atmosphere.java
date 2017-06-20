@@ -2,7 +2,6 @@ package com.example.przemyslaw.aw.data;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +10,7 @@ import org.json.JSONObject;
  */
 
 public class Atmosphere implements JSONPopulator {
+
     private double humidity;
     private double pressure;
     private double rising;
@@ -52,10 +52,7 @@ public class Atmosphere implements JSONPopulator {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return data;
     }
-
-
 
 }

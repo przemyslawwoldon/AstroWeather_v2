@@ -79,7 +79,7 @@
         android:layout_height="13dp"
         android:layout_weight="0.00"
         />
-
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -135,12 +135,12 @@
 
         <fragment
             android:id="@+id/fragment5"
-            android:name="layout.NextDayFragment"
+            android:name="layout.large.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="203dp"
             android:layout_weight="1"
             tools:layout="@layout/fragment_blank"></fragment>
 
 </LinearLayout>
-
+-->
 </LinearLayout>

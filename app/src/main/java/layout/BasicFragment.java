@@ -39,7 +39,6 @@ public class BasicFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mainActivity = (MainActivity) getActivity();
-
         View view = inflater.inflate(R.layout.fragment_basic, container, false);
         weatherIconImageView = (ImageView) view.findViewById(R.id.weatherIconImageView);
         temperatureTextView = (TextView) view.findViewById(R.id.temperatureTextView);
