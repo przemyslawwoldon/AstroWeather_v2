@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aw="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/update"
-        android:icon="@drawable/icon_location"
-        android:title="Update"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="Refresh"
         aw:showAsAction="ifRoom|withText"/>
     <item
         android:id="@+id/settings"

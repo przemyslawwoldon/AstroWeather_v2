@@ -39,14 +39,8 @@ import layout.BasicFragment;
 import layout.MoonFragment;
 import layout.NextDayFragment;
 import layout.SunFragment;
-import layout.large.AdditionFragmentL;
-import layout.large.BasicFragmentL;
-import layout.large.MoonFragmentL;
-import layout.large.NextDayFragmentL;
+import layout.large.ComplexFragment;
 import layout.large.NextDayFragmentLand;
-import layout.large.SunFragmentL;
-import layout.large.SunMoonFragment;
-import layout.large.WeatherWindFragment;
 
 public class MainActivity extends AppCompatActivity implements WeatherServiceListener{
 
@@ -89,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+            super.onCreate(savedInstanceState);
             switch (getResources().getConfiguration().orientation){
                 case Configuration.ORIENTATION_PORTRAIT:
                     setContentView(R.layout.activity_main);
@@ -106,31 +100,18 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
             pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
         } else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            super.onCreate(savedInstanceState);
             switch (getResources().getConfiguration().orientation) {
                 case Configuration.ORIENTATION_PORTRAIT:
                     setContentView(R.layout.activity_main_large);
-
-                    BasicFragmentL basicFragmentL = BasicFragmentL.newInstance();
-                    AdditionFragmentL additionFragmentL = AdditionFragmentL.newInstance();
-                    NextDayFragmentL nextDayFragmentL = NextDayFragmentL.newInstance();
-                    SunFragmentL sunFragmentL = SunFragmentL.newInstance();
-                    MoonFragmentL moonFragmentL = MoonFragmentL.newInstance();
-
-                   /* android.app.FragmentManager manager = getFragmentManager();
-                    android.app.FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment1, basicFragmentL);
-                    fragmentTransaction.replace(R.id.fragment2, additionFragmentL);
-                    fragmentTransaction.replace(R.id.fragment3, sunFragmentL);
-                    fragmentTransaction.replace(R.id.fragment4, moonFragmentL);
-                    fragmentTransaction.replace(R.id.fragment5, nextDayFragmentL);
-                    fragmentTransaction.commit();*/
                     break;
                 case Configuration.ORIENTATION_LANDSCAPE:
-                    setContentView(R.layout.activity_main_large_land);
-                    ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
-                    pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
+                    setContentView(R.layout.activity_main_large);
+
                     break;
             }
+            ViewPager pager = (ViewPager) findViewById(R.id.viewPagerLarge);
+            pager.setAdapter(new MyPagerAdapterLarge(getSupportFragmentManager()));
             actualTime = (TextView) findViewById(R.id.textViewActualTime);
             longitude = (TextView) findViewById(R.id.textViewActualLong);
             latitude = (TextView) findViewById(R.id.textViewActualLat);
@@ -143,9 +124,8 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         loadingDialog.setMessage(getString(R.string.loading));
         loadingDialog.setCancelable(false);
         loadingDialog.show();
-        yahooWeatherService.refreshWeather(location);
+        //yahooWeatherService.refreshWeather(location);
         startClock();
-
 
         Thread timeTread = new Thread(){
             @Override
@@ -155,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                         runOnUiThread(new Runnable(){
                             @Override
                             public void run(){
-                               //yahooWeatherService.refreshWeather("chicago, il");
+                               yahooWeatherService.refreshWeather(location);
                             }
                         });
                         Thread.sleep(60000 * timeRefr);
@@ -215,18 +195,16 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         public android.support.v4.app.Fragment getItem(int pos) {
             switch(pos) {
                 case 0:
-                    return SunMoonFragment.newInstance();
+                    return ComplexFragment.newInstance();
                 case 1:
-                    return WeatherWindFragment.newInstance();
-                case 2:
                     return NextDayFragmentLand.newInstance();
                 default:
-                    return WeatherWindFragment.newInstance();
+                    return ComplexFragment.newInstance();
             }
         }
         @Override
         public int getCount() {
-            return 4;
+            return 2;
         }
     }
 
@@ -302,6 +280,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             outputStream.write(stringToFile.getBytes());
             outputStream.close();
+            Toast.makeText(MainActivity.this, "Zapisal", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             //e.printStackTrace();
         }
@@ -365,4 +344,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     public String getTemperatureUnits() {
         return temperatureUnits;
     }
+
+
 }

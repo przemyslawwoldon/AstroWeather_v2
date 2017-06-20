@@ -9,6 +9,14 @@ import com.example.przemyslaw.aw.R;
 
 public class BlankFragment extends android.app.Fragment {
 
+    public BlankFragment() {
+    }
+
+    public static BlankFragment newInstance() {
+        BlankFragment fragment = new BlankFragment();
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

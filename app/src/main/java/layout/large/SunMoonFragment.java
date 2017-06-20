@@ -54,7 +54,7 @@ public class SunMoonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mainActivity = (MainActivity) getActivity();
+       mainActivity= (MainActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_sun_moon, container, false);
 
         riseTime = (TextView) view.findViewById(R.id.MoonFargtextViewRiseMoon);
@@ -144,4 +144,5 @@ public class SunMoonFragment extends Fragment {
             synodicDay.setText(formatter.format(astroCalculator.getMoonInfo().getAge()));
         }
     }
+
 }

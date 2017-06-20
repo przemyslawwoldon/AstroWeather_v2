@@ -54,7 +54,7 @@ public class NextDayFragmentLand extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
 
-        View view = inflater.inflate(R.layout.fragment_next_day_landscape, container, false);
+        View view = inflater.inflate(R.layout.fragment_next_day_large, container, false);
 
         weatherIconImageView1 = (ImageView) view.findViewById(R.id.weatherIconImageView1);
         dayTextView1 = (TextView) view.findViewById(R.id.dayTextView1);

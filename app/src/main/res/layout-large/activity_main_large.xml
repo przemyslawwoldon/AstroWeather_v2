@@ -91,21 +91,17 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <fragment
+            <FrameLayout
                 android:id="@+id/fragment1"
-                android:name="layout.large.BlankFragment"
                 android:layout_width="match_parent"
                 android:layout_height="203dp"
-                android:layout_weight="1"
-                tools:layout="@layout/fragment_blank"></fragment>
+                android:layout_weight="1"></FrameLayout>
 
-            <fragment
+            <FrameLayout
                 android:id="@+id/fragment2"
-                android:name="layout.large.BlankFragment"
                 android:layout_width="match_parent"
                 android:layout_height="203dp"
-                android:layout_weight="1"
-                tools:layout="@layout/fragment_blank"></fragment>
+                android:layout_weight="1"></FrameLayout>
 
 
         </LinearLayout>
@@ -116,31 +112,30 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <fragment
+            <FrameLayout
                 android:id="@+id/fragment3"
-                android:name="layout.large.BlankFragment"
                 android:layout_width="match_parent"
                 android:layout_height="203dp"
-                android:layout_weight="1"
-                tools:layout="@layout/fragment_blank"></fragment>
+                android:layout_weight="1"></FrameLayout>
 
-            <fragment
+            <FrameLayout
                 android:id="@+id/fragment4"
-                android:name="layout.large.BlankFragment"
                 android:layout_width="match_parent"
                 android:layout_height="203dp"
-                android:layout_weight="1"
-                tools:layout="@layout/fragment_blank"></fragment>
+                android:layout_weight="1"></FrameLayout>
         </LinearLayout>
 
-        <fragment
+        <FrameLayout
             android:id="@+id/fragment5"
-            android:name="layout.large.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="203dp"
-            android:layout_weight="1"
-            tools:layout="@layout/fragment_blank"></fragment>
+            android:layout_weight="1"></FrameLayout>
 
-</LinearLayout>
+
+    </LinearLayout>
 -->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
